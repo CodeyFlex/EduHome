@@ -22,5 +22,10 @@ namespace EduHome.Controllers
             IEnumerable<Comment> objList = _db.Comments;
             return View(objList);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }

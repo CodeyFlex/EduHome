@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/EduHome/Migrations/20211230214038_addCommentsToDatabase.cs
+/EduHome/Migrations/20211230214038_addCommentsToDatabase.Designer.cs
