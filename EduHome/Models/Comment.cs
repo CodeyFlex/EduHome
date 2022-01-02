@@ -18,6 +18,7 @@ namespace EduHome.Models
         public string Comment_Date { get; set; }
 
         [DisplayName("Comment")]
+        [Required]
         public string Comment_String { get; set; }
 
 

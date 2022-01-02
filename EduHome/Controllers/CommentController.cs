@@ -1,5 +1,6 @@
 ﻿using EduHome.Data;
 using EduHome.Models;
+using EduHome.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -19,10 +20,20 @@ namespace EduHome.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Comment> objList = _db.Comments;
-            return View(objList);
+            CommentVM commentVM = new CommentVM()
+            {
+                IEComment = _db.Comments.Select(i => new Comment
+                {
+                    Commenter = i.Commenter,
+                    Comment_Date = i.Comment_Date,
+                    Comment_String = i.Comment_String
+                })
+
+        };
+            return View(commentVM);
         }
 
+        //GET-Create
         public IActionResult Create()
         {
             return View();
