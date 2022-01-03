@@ -21,6 +21,12 @@ namespace EduHome.Models
         [Required]
         public string Comment_String { get; set; }
 
+        public int Comment_Likes { get; set; }
 
+        public int Comment_Replies { get; set; }
+
+        public int Comment_Reply_To_Id { get; set; }
+
+        public bool Comment_Highlighted { get; set; }
     }
 }
