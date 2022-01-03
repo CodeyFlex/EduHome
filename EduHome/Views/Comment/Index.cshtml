@@ -19,46 +19,60 @@
             <div class="col-10">
                 <input type="text" name="Comment" value="" class="form-control" placeholder="Your comment" />
             </div>
-            <div class="col-6">    
+            <div class="col-6">
                 <input type="submit" class="btn btn-info w-150" value="Post Comment" />
             </div>
         </form>
     </div>
     <br />
 
-    @if(Model.IEComment.Count() > 0) 
-    { 
-        <table class="table table-bordered table-striped" style=""width:100%">
-            <thead>
-                <tr>
-                    <th>
-                        <label asp-for="Comment.Commenter"></label>
-                    </th>
-                    <th>
-                        <label asp-for="Comment.Comment_Date"></label>
-                    </th>
-                    <th>
-                        <label asp-for="Comment.Comment_String"></label>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach(var iecomment in Model.IEComment)
-                {
-                <tr>
-                    <td width="30%">@iecomment.Commenter</td>
-                    <td width="30%">@iecomment.Comment_Date</td>
-                    <td width="30%">@iecomment.Comment_String</td>
-                </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <p>No comments created yet</p>
-    }
-
-
-
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="pills-eduhome-tab" data-toggle="pill" href="#pills-eduhome" role="tab" aria-controls="pills-eduhome" aria-selected="true">Recommended by EduHome</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="pills-upvoted-tab" data-toggle="pill" href="#pills-upvoted" role="tab" aria-controls="pills-upvoted" aria-selected="false">Most Upvoted</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="pills-newest-tab" data-toggle="pill" href="#pills-newest" role="tab" aria-controls="pills-newest" aria-selected="false">Newest</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-eduhome" role="tabpanel" aria-labelledby="pills-eduhome-tab">
+            @if (Model.IEComment.Count() > 0)
+            {
+                <table class="table table-bordered table-striped" style="" width:100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                <label asp-for="Comment.Commenter"></label>
+                            </th>
+                            <th>
+                                <label asp-for="Comment.Comment_Date"></label>
+                            </th>
+                            <th>
+                                <label asp-for="Comment.Comment_String"></label>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var iecomment in Model.IEComment)
+                        {
+                            <tr>
+                                <td width="30%">@iecomment.Commenter</td>
+                                <td width="30%">@iecomment.Comment_Date</td>
+                                <td width="30%">@iecomment.Comment_String</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No comments created yet</p>
+            }
+        </div>
+        <div class="tab-pane fade" id="pills-upvoted" role="tabpanel" aria-labelledby="pills-upvoted-tab">Profile</div>
+        <div class="tab-pane fade" id="pills-newest" role="tabpanel" aria-labelledby="pills-newest-tab">Contact</div>
+    </div>
 </div>
