@@ -41,6 +41,45 @@
         <div class="tab-pane fade show active" id="pills-eduhome" role="tabpanel" aria-labelledby="pills-eduhome-tab">
             @if (Model.IEComment.Count() > 0)
             {
+                <form method"post" asp-action="OrderByHighlighted">
+                    <table class="table table-bordered table-striped" style="" width:100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <label asp-for="Comment.Commenter"></label>
+                                </th>
+                                <th>
+                                    <label asp-for="Comment.Comment_Date"></label>
+                                </th>
+                                <th>
+                                    <label asp-for="Comment.Comment_String"></label>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var iecomment in Model.IEComment)
+                            {
+                                if (iecomment.Comment_Highlighted == true) {
+                                    <tr>
+                                        <td width="30%">@iecomment.Commenter</td>
+                                        <td width="30%">@iecomment.Comment_Date</td>
+                                        <td width="30%">@iecomment.Comment_String</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    </form>
+                    }
+                    else
+                    {
+                    <p>No comments created yet</p>
+                    }
+            </div>
+        <div class="tab-pane fade" id="pills-upvoted" role="tabpanel" aria-labelledby="pills-upvoted-tab">Profile</div>
+        <div class="tab-pane fade" id="pills-newest" role="tabpanel" aria-labelledby="pills-newest-tab">
+            @if (Model.IEComment.Count() > 0)
+            {
                 <table class="table table-bordered table-striped" style="" width:100%">
                     <thead>
                         <tr>
@@ -72,7 +111,5 @@
                 <p>No comments created yet</p>
             }
         </div>
-        <div class="tab-pane fade" id="pills-upvoted" role="tabpanel" aria-labelledby="pills-upvoted-tab">Profile</div>
-        <div class="tab-pane fade" id="pills-newest" role="tabpanel" aria-labelledby="pills-newest-tab">Contact</div>
     </div>
 </div>

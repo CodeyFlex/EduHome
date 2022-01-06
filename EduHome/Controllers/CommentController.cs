@@ -26,7 +26,11 @@ namespace EduHome.Controllers
                 {
                     Commenter = i.Commenter,
                     Comment_Date = i.Comment_Date,
-                    Comment_String = i.Comment_String
+                    Comment_String = i.Comment_String,
+                    Comment_Likes = i.Comment_Likes,
+                    Comment_Replies = i.Comment_Replies,
+                    Comment_Reply_To_Id = i.Comment_Reply_To_Id,
+                    Comment_Highlighted = i.Comment_Highlighted
                 })
 
         };
