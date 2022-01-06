@@ -95,7 +95,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var iecomment in Model.IEComment.OrderBy(IEComment => IEComment.Comment_Likes))
+                            @foreach (var iecomment in Model.IEComment.OrderByDescending(IEComment => IEComment.Comment_Likes))
                             {
                                 <tr>
                                     <td width="30%">@iecomment.Commenter</td>
