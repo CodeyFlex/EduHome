@@ -15,7 +15,7 @@ namespace EduHome.Models
         public string Commenter { get; set; }
 
         [DisplayName("Date")]
-        public string Comment_Date { get; set; }
+        public DateTime Comment_Date { get; set; }
 
         [DisplayName("Comment")]
         [Required]
