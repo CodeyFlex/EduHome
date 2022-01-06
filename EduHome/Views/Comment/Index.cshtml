@@ -56,7 +56,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var iecomment in Model.IEComment)
+                            @foreach (var iecomment in Model.IEComment.OrderByDescending(IEComment => IEComment.Comment_Date))
                             {
                                 if (iecomment.Comment_Highlighted == true) {
                                     <tr>
@@ -130,7 +130,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var iecomment in Model.IEComment)
+                        @foreach (var iecomment in Model.IEComment.OrderByDescending(IEComment => IEComment.Comment_Date))
                         {
                             <tr>
                                 <td width="30%">@iecomment.Commenter</td>
