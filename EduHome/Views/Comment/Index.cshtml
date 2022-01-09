@@ -15,9 +15,10 @@
         <div class="col-6">
             <h2 class="text_primary">Comments List</h2>
         </div>
-        <form method"post" asp-action="Create">
-            <div class="col-10">
-                <input type="text" name="Comment" value="" class="form-control" placeholder="Your comment" />
+        <form method="post" asp-action="Index">
+            <div class="col-10 form-group row">
+                <input asp-for="Comment.Commenter" placeholder="@User.Identity.Name"/>
+                <input asp-for="Comment.Comment_String" class="form-control" placeholder="Your comment" />
             </div>
             <div class="col-6">
                 <input type="submit" class="btn btn-info w-150" value="Post Comment" />

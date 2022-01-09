@@ -1,6 +1,7 @@
 ﻿using EduHome.Data;
 using EduHome.Models;
 using EduHome.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,15 @@ namespace EduHome.Controllers
     public class CommentController : Controller
     {
         private readonly ApplicationDbContext _db;
+        UserManager<ApplicationUser> _userManager;
 
-        public CommentController(ApplicationDbContext db)
+        public CommentController(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
         {
             _db = db;
+            _userManager = userManager;
         }
 
+        //Get-Index
         public IActionResult Index()
         {
             CommentVM commentVM = new CommentVM()
@@ -37,10 +41,24 @@ namespace EduHome.Controllers
             return View(commentVM);
         }
 
-        //GET-Create
-        public IActionResult Create()
+        //Post-Index
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Index(CommentVM model)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var comment = new Comment
+                {
+                    Commenter = _userManager.GetUserName(User),
+                    Comment_String = model.Comment.Comment_String,
+                    Comment_Date = DateTime.Today
+                };
+
+                _db.Comments.Add(comment);
+                _db.SaveChanges();
+            }
+            return RedirectToAction("Index");
         }
 
         //Post Delete
