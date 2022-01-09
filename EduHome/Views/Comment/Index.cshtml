@@ -63,6 +63,9 @@
                                         <td width="30%">@iecomment.Commenter</td>
                                         <td width="30%">@iecomment.Comment_Date</td>
                                         <td width="30%">@iecomment.Comment_String</td>
+                                        <td class="col-6 text-right">
+                                            <a asp-controller="Comment" asp-action="DeletePost" asp-route-Id="@iecomment.Id" class="btn btn-danger mx-1">Delete</a>
+                                        </td>
                                     </tr>
                                 }
                             }

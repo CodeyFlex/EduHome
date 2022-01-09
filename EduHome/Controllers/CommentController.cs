@@ -42,5 +42,20 @@ namespace EduHome.Controllers
         {
             return View();
         }
+
+        //Post Delete
+        [HttpPost]
+        public IActionResult DeletePost(int? id)
+        {
+            var obj = _db.Comments.Find(id);
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            _db.Comments.Remove(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
