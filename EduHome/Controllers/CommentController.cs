@@ -28,6 +28,7 @@ namespace EduHome.Controllers
             {
                 IEComment = _db.Comments.Select(i => new Comment
                 {
+                    Id = i.Id,
                     Commenter = i.Commenter,
                     Comment_Date = i.Comment_Date,
                     Comment_String = i.Comment_String,
@@ -63,10 +64,11 @@ namespace EduHome.Controllers
 
         //Post Delete
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
             var obj = _db.Comments.Find(id);
-            if(id == null)
+            if(obj == null)
             {
                 return NotFound();
             }

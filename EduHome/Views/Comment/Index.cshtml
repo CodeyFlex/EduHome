@@ -54,18 +54,27 @@
                                 <th>
                                     <label asp-for="Comment.Comment_String"></label>
                                 </th>
+                                <th>
+                                    <label asp-for="Comment.Comment_Likes"></label>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var iecomment in Model.IEComment.OrderByDescending(IEComment => IEComment.Comment_Date))
                             {
-                                if (iecomment.Comment_Highlighted == true) {
+                                if (iecomment.Comment_Highlighted == true)
+                                {
                                     <tr>
                                         <td width="30%">@iecomment.Commenter</td>
                                         <td width="30%">@iecomment.Comment_Date</td>
                                         <td width="30%">@iecomment.Comment_String</td>
+                                        <td width="30%">@iecomment.Comment_Likes</td>
                                         <td class="col-6 text-right">
-                                            <a asp-controller="Comment" asp-action="DeletePost" asp-route-Id="@iecomment.Id" class="btn btn-danger mx-1">Delete</a>
+                                            <div>
+                                                <form method="post" asp-action="DeletePost" asp-route-id="@iecomment.Id">
+                                                    <input type="submit" value="Delete" class="btn btn-danger" />
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 }
@@ -106,6 +115,13 @@
                                     <td width="30%">@iecomment.Comment_Date</td>
                                     <td width="30%">@iecomment.Comment_String</td>
                                     <td width="30%">@iecomment.Comment_Likes</td>
+                                    <td class="col-6 text-right">
+                                            <div>
+                                                <form method="post" asp-action="DeletePost" asp-route-id="@iecomment.Id">
+                                                    <input type="submit" value="Delete" class="btn btn-danger" />
+                                                </form>
+                                            </div>
+                                        </td>
                                 </tr>
                             }
                         </tbody>
@@ -140,6 +156,13 @@
                                 <td width="30%">@iecomment.Commenter</td>
                                 <td width="30%">@iecomment.Comment_Date</td>
                                 <td width="30%">@iecomment.Comment_String</td>
+                                <td class="col-6 text-right">
+                                            <div>
+                                                <form method="post" asp-action="DeletePost" asp-route-id="@iecomment.Id">
+                                                    <input type="submit" value="Delete" class="btn btn-danger" />
+                                                </form>
+                                            </div>
+                                        </td>
                             </tr>
                         }
                     </tbody>

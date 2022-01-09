@@ -9,6 +9,6 @@ namespace EduHome.Models.ViewModels
     {
         public Comment Comment { get; set; }
 
-        public IEnumerable<Comment> IEComment { get; set; }
+        public IEnumerable<Comment> IEComment { get; set; } //Multiple comment models in one model
     }
 }
