@@ -77,5 +77,16 @@ namespace EduHome.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        //Get Update
+        public IActionResult Highlight(int? id)
+        {
+            var obj = _db.Comments.Find(id);
+            obj.Comment_Highlighted = true;
+            _db.Comments.Update(obj);
+            _db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
     }
 }

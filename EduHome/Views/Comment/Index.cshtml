@@ -122,6 +122,13 @@
                                                 </form>
                                             </div>
                                         </td>
+                                    <td class="col-6 text-right">
+                                            <div>
+                                                <form method="post" asp-action="Highlight" asp-route-id="@iecomment.Id">
+                                                    <input type="submit" value="Highlight" class="btn btn-danger" />
+                                                </form>
+                                            </div>
+                                        </td>
                                 </tr>
                             }
                         </tbody>
@@ -152,18 +159,25 @@
                     <tbody>
                         @foreach (var iecomment in Model.IEComment.OrderByDescending(IEComment => IEComment.Comment_Date))
                         {
-                            <tr>
-                                <td width="30%">@iecomment.Commenter</td>
-                                <td width="30%">@iecomment.Comment_Date</td>
-                                <td width="30%">@iecomment.Comment_String</td>
-                                <td class="col-6 text-right">
-                                            <div>
-                                                <form method="post" asp-action="DeletePost" asp-route-id="@iecomment.Id">
-                                                    <input type="submit" value="Delete" class="btn btn-danger" />
-                                                </form>
-                                            </div>
-                                        </td>
-                            </tr>
+                        <tr>
+                            <td width="30%">@iecomment.Commenter</td>
+                            <td width="30%">@iecomment.Comment_Date</td>
+                            <td width="30%">@iecomment.Comment_String</td>
+                            <td class="col-6 text-right">
+                                <div>
+                                    <form method="post" asp-action="DeletePost" asp-route-id="@iecomment.Id">
+                                        <input type="submit" value="Delete" class="btn btn-danger" />
+                                    </form>
+                                </div>
+                            </td>
+                            <td class="col-6 text-right">
+                                <div>
+                                    <form method="post" asp-action="Highlight" asp-route-id="@iecomment.Id">
+                                        <input type="submit" value="Highlight" class="btn btn-danger" />
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>
