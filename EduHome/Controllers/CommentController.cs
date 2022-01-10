@@ -13,7 +13,7 @@ namespace EduHome.Controllers
     public class CommentController : Controller
     {
         private readonly ApplicationDbContext _db;
-        UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public CommentController(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
         {

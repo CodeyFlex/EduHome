@@ -2,6 +2,10 @@
 @model EduHome.Models.ViewModels.CommentVM
 
 <div class="container p-3">
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/my-style-sheet.css" rel="stylesheet" />
+
     <div class="row pt-4">
         <div style="margin-left:auto;margin-right:auto;">
             <iframe width="560"
@@ -12,15 +16,13 @@
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen></iframe>
         </div>
-        <div class="col-6">
-            <h2 class="text_primary">Comments List</h2>
+        <div class="col-10 form-group row justify-content-md-center">
+            <h2 class="text_primary">Comments:</h2>
         </div>
         <form method="post" asp-action="Index">
-            <div class="col-10 form-group row">
-                <input asp-for="Comment.Commenter" placeholder="@User.Identity.Name"/>
+            <div class="col-10 form-group row justify-content-md-center">
+                <label >Commenting as: @User.Identity.Name</label>
                 <input asp-for="Comment.Comment_String" class="form-control" placeholder="Your comment" />
-            </div>
-            <div class="col-6">
                 <input type="submit" class="btn btn-info w-150" value="Post Comment" />
             </div>
         </form>
@@ -42,152 +44,207 @@
         <div class="tab-pane fade show active" id="pills-eduhome" role="tabpanel" aria-labelledby="pills-eduhome-tab">
             @if (Model.IEComment.Count() > 0)
             {
-                    <table class="table table-bordered table-striped" style="" width:100%">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <label asp-for="Comment.Commenter"></label>
-                                </th>
-                                <th>
-                                    <label asp-for="Comment.Comment_Date"></label>
-                                </th>
-                                <th>
-                                    <label asp-for="Comment.Comment_String"></label>
-                                </th>
-                                <th>
-                                    <label asp-for="Comment.Comment_Likes"></label>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var iecomment in Model.IEComment.OrderByDescending(IEComment => IEComment.Comment_Date))
-                            {
-                                if (iecomment.Comment_Highlighted == true)
-                                {
-                            <tr>
-                                <td width="30%">@iecomment.Commenter</td>
-                                <td width="30%">@iecomment.Comment_Date</td>
-                                <td width="30%">@iecomment.Comment_String</td>
-                                <td width="30%">@iecomment.Comment_Likes</td>
-                                <td class="col-6 text-right">
-                                    <div>
-                                        <form method="post" asp-action="DeletePost" asp-route-id="@iecomment.Id">
-                                            <input type="submit" value="Delete" class="btn btn-danger" />
-                                        </form>
-                                    </div>
-                                </td>
-                                <td class="col-6 text-right">
-                                    <div>
-                                        <form method="post" asp-action="UnHighlight" asp-route-id="@iecomment.Id">
-                                            <input type="submit" value="Unhighlight" class="btn btn-danger" />
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                                }
-                            }
-                        </tbody>
-                    </table>
-                    }
-                    else
+                @foreach (var iecomment in Model.IEComment.OrderByDescending(IEComment => IEComment.Comment_Date))
+                {
+                    if (iecomment.Comment_Highlighted == true)
                     {
-                    <p>No comments created yet</p>
+                        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="media g-mb-30 media-comment">
+                                        <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
+                                        <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                                            <div class="g-mb-15">
+                                                <h5 class="h5 g-color-gray-dark-v1 mb-0">@iecomment.Commenter</h5>
+                                                <span class="g-color-gray-dark-v4 g-font-size-12">@iecomment.Comment_Date</span>
+                                            </div>
+
+                                            <p>
+                                                @iecomment.Comment_String
+                                            </p>
+
+                                            <ul class="list-inline d-sm-flex my-0">
+                                                <li class="list-inline-item g-mr-20">
+                                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                                                        <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
+                                                        @iecomment.Comment_Likes
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item g-mr-20">
+                                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                                                        <i class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
+                                                        3
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item ml-auto">
+                                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                                                        <form method="post" asp-action="UnHighlight" asp-route-id="@iecomment.Id">
+                                                            <input type="submit" value="Unhighlight" class="btn btn-danger" />
+                                                        </form>
+                                                    </a>
+                                                </li>
+
+                                                <li class="list-inline-item ml-auto">
+                                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                                                        <form method="post" asp-action="DeletePost" asp-route-id="@iecomment.Id">
+                                                            <input type="submit" value="Delete" class="btn btn-danger" />
+                                                        </form>
+                                                    </a>
+                                                </li>
+
+                                                <li class="list-inline-item ml-auto">
+                                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                                                        <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
+                                                        Reply
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     }
-            </div>
+                 }
+             }
+             else
+             {
+                 <p>No comments created yet</p>
+             }
+        </div>
         <div class="tab-pane fade" id="pills-upvoted" role="tabpanel" aria-labelledby="pills-upvoted-tab">
-                @if (Model.IEComment.Count() > 0)
+            @if (Model.IEComment.Count() > 0)
+            {
+                @foreach (var iecomment in Model.IEComment.OrderByDescending(IEComment => IEComment.Comment_Likes))
                 {
-                    <table class="table table-bordered table-striped" style="" width:100%">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <label asp-for="Comment.Commenter"></label>
-                                </th>
-                                <th>
-                                    <label asp-for="Comment.Comment_Date"></label>
-                                </th>
-                                <th>
-                                    <label asp-for="Comment.Comment_String"></label>
-                                </th>
-                                <th>
-                                    <label asp-for="Comment.Comment_Likes"></label>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var iecomment in Model.IEComment.OrderByDescending(IEComment => IEComment.Comment_Likes))
-                            {
-                                <tr>
-                                    <td width="30%">@iecomment.Commenter</td>
-                                    <td width="30%">@iecomment.Comment_Date</td>
-                                    <td width="30%">@iecomment.Comment_String</td>
-                                    <td width="30%">@iecomment.Comment_Likes</td>
-                                    <td class="col-6 text-right">
-                                            <div>
-                                                <form method="post" asp-action="DeletePost" asp-route-id="@iecomment.Id">
-                                                    <input type="submit" value="Delete" class="btn btn-danger" />
-                                                </form>
+                        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="media g-mb-30 media-comment">
+                                        <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
+                                        <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                                            <div class="g-mb-15">
+                                                <h5 class="h5 g-color-gray-dark-v1 mb-0">@iecomment.Commenter</h5>
+                                                <span class="g-color-gray-dark-v4 g-font-size-12">@iecomment.Comment_Date</span>
                                             </div>
-                                        </td>
-                                    <td class="col-6 text-right">
-                                            <div>
-                                                <form method="post" asp-action="Highlight" asp-route-id="@iecomment.Id">
-                                                    <input type="submit" value="Highlight" class="btn btn-danger" />
-                                                </form>
-                                            </div>
-                                        </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+
+                                            <p>
+                                                @iecomment.Comment_String
+                                            </p>
+
+                                            <ul class="list-inline d-sm-flex my-0">
+                                                <li class="list-inline-item g-mr-20">
+                                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                                                        <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
+                                                        @iecomment.Comment_Likes
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item g-mr-20">
+                                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                                                        <i class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
+                                                        3
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item ml-auto">
+                                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                                                        <form method="post" asp-action="Highlight" asp-route-id="@iecomment.Id">
+                                                            <input type="submit" value="Highlight" class="btn btn-outline-success" />
+                                                        </form>
+                                                    </a>
+                                                </li>
+
+                                                <li class="list-inline-item ml-auto">
+                                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                                                        <form method="post" asp-action="DeletePost" asp-route-id="@iecomment.Id">
+                                                            <input type="submit" value="Delete" class="btn btn-danger" />
+                                                        </form>
+                                                    </a>
+                                                </li>
+
+                                                <li class="list-inline-item ml-auto">
+                                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                                                        <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
+                                                        Reply
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 }
-                else
-                {
-                    <p>No comments created yet</p>
-                }
+            }
+            else
+            {
+                <p>No comments created yet</p>
+            }
         </div>
         <div class="tab-pane fade" id="pills-newest" role="tabpanel" aria-labelledby="pills-newest-tab">
             @if (Model.IEComment.Count() > 0)
             {
-                <table class="table table-bordered table-striped" style="" width:100%">
-                    <thead>
-                        <tr>
-                            <th>
-                                <label asp-for="Comment.Commenter"></label>
-                            </th>
-                            <th>
-                                <label asp-for="Comment.Comment_Date"></label>
-                            </th>
-                            <th>
-                                <label asp-for="Comment.Comment_String"></label>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var iecomment in Model.IEComment.OrderByDescending(IEComment => IEComment.Comment_Date))
-                        {
-                        <tr>
-                            <td width="30%">@iecomment.Commenter</td>
-                            <td width="30%">@iecomment.Comment_Date</td>
-                            <td width="30%">@iecomment.Comment_String</td>
-                            <td class="col-6 text-right">
-                                <div>
-                                    <form method="post" asp-action="DeletePost" asp-route-id="@iecomment.Id">
-                                        <input type="submit" value="Delete" class="btn btn-danger" />
-                                    </form>
+                @foreach (var iecomment in Model.IEComment.OrderByDescending(IEComment => IEComment.Comment_Date))
+                {
+                        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="media g-mb-30 media-comment">
+                                        <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
+                                        <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                                            <div class="g-mb-15">
+                                                <h5 class="h5 g-color-gray-dark-v1 mb-0">@iecomment.Commenter</h5>
+                                                <span class="g-color-gray-dark-v4 g-font-size-12">@iecomment.Comment_Date</span>
+                                            </div>
+
+                                            <p>
+                                                @iecomment.Comment_String
+                                            </p>
+
+                                            <ul class="list-inline d-sm-flex my-0">
+                                                <li class="list-inline-item g-mr-20">
+                                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                                                        <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
+                                                        @iecomment.Comment_Likes
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item g-mr-20">
+                                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                                                        <i class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
+                                                        3
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item ml-auto">
+                                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                                                        <form method="post" asp-action="Highlight" asp-route-id="@iecomment.Id">
+                                                            <input type="submit" value="Highlight" class="btn btn-outline-success" />
+                                                        </form>
+                                                    </a>
+                                                </li>
+
+                                                <li class="list-inline-item ml-auto">
+                                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                                                        <form method="post" asp-action="DeletePost" asp-route-id="@iecomment.Id">
+                                                            <input type="submit" value="Delete" class="btn btn-danger" />
+                                                        </form>
+                                                    </a>
+                                                </li>
+
+                                                <li class="list-inline-item ml-auto">
+                                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                                                        <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
+                                                        Reply
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
-                            </td>
-                            <td class="col-6 text-right">
-                                <div>
-                                    <form method="post" asp-action="Highlight" asp-route-id="@iecomment.Id">
-                                        <input type="submit" value="Highlight" class="btn btn-danger" />
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                        }
-                    </tbody>
-                </table>
+                            </div>
+                        </div>
+                }
             }
             else
             {
