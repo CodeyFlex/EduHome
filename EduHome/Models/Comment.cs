@@ -13,7 +13,6 @@ namespace EduHome.Models
         public int Id { get; set; }
         
         [DisplayName("User")]
-        [Required]
         public string Commenter { get; set; }
 
         [DisplayName("Date")]
