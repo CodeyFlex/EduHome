@@ -44,7 +44,7 @@ namespace EduHome.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError("", "Invalied Login Attempt");
+                ModelState.AddModelError("", "Invalid Login Attempt");
             }
             return View(model);
         }
