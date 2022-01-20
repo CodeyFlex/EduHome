@@ -45,6 +45,7 @@ namespace EduHome.Controllers
 
         //Post-Index
         [HttpPost]
+        [Authorize(Roles = "Admin, User")]
         [ValidateAntiForgeryToken]
         public IActionResult Index(CommentVM model)
         {
@@ -65,6 +66,7 @@ namespace EduHome.Controllers
 
         //Post Delete
         [HttpPost]
+        [Authorize(Roles = "Admin, User")]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
