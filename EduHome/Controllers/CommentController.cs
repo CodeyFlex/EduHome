@@ -1,6 +1,7 @@
 ﻿using EduHome.Data;
 using EduHome.Models;
 using EduHome.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -53,7 +54,7 @@ namespace EduHome.Controllers
                 {
                     Commenter = _userManager.GetUserName(User),
                     Comment_String = model.Comment.Comment_String,
-                    Comment_Date = DateTime.Today
+                    Comment_Date = DateTime.Now
                 };
 
                 _db.Comments.Add(comment);
@@ -79,6 +80,7 @@ namespace EduHome.Controllers
         }
 
         //Highlight Update
+        [Authorize(Roles = "Admin")]
         public IActionResult Highlight(int? id)
         {
             var obj = _db.Comments.Find(id);
@@ -90,6 +92,7 @@ namespace EduHome.Controllers
         }
 
         //UnHighlight Update
+        [Authorize(Roles = "Admin")]
         public IActionResult UnHighlight(int? id)
         {
             var obj = _db.Comments.Find(id);
