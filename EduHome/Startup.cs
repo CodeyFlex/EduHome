@@ -1,5 +1,6 @@
 using EduHome.Data;
 using EduHome.Models;
+using EduHome.Models.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +33,7 @@ namespace EduHome
                 );
 
             services.AddControllersWithViews();
+            services.AddScoped<ICommentRepository, SQLCommentRepository>(); //Directs the use of ICommentRepository to SQL version
 
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
         }
