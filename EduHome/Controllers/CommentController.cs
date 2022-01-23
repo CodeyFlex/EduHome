@@ -14,23 +14,21 @@ namespace EduHome.Controllers
 {
     public class CommentController : Controller
     {
-        private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ICommentRepository _commentRepository;
 
-        public CommentController(ApplicationDbContext db, UserManager<ApplicationUser> userManager, ICommentRepository commentRepository)
+        public CommentController(UserManager<ApplicationUser> userManager, ICommentRepository commentRepository)
         {
-            _db = db;
             _userManager = userManager;
             _commentRepository = commentRepository;
         }
 
         //Get-Index
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             CommentVM commentVM = new CommentVM()
             {
-                IEComment = _commentRepository.GetAllComments()
+                IEComment = await _commentRepository.GetAllComments()
             };
             return View(commentVM);
         }
@@ -61,8 +59,8 @@ namespace EduHome.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
-            var obj = _commentRepository.GetComment(id);
-            if (obj == null)
+            var comment = _commentRepository.GetComment(id);
+            if (comment == null)
             {
                 return NotFound();
             }
@@ -76,22 +74,22 @@ namespace EduHome.Controllers
 
         //Highlight Update
         [Authorize(Roles = "Admin")]
-        public IActionResult Highlight(int? id)
+        public async Task<IActionResult> Highlight(int? id)
         {
-            var obj = _commentRepository.GetComment(id);
-            obj.Comment_Highlighted = true; //Changing highlight value
-            _commentRepository.Update(obj);
+            var comment = await _commentRepository.GetComment(id);
+            comment.Comment_Highlighted = true; //Changing highlight value
+            _commentRepository.Update(comment);
 
             return RedirectToAction("Index");
         }
 
         //UnHighlight Update
         [Authorize(Roles = "Admin")]
-        public IActionResult UnHighlight(int? id)
+        public async Task<IActionResult> UnHighlight(int? id)
         {
-            var obj = _commentRepository.GetComment(id);
-            obj.Comment_Highlighted = false; //Changing highlight value
-            _commentRepository.Update(obj);
+            var comment = await _commentRepository.GetComment(id);
+            comment.Comment_Highlighted = false; //Changing highlight value
+            _commentRepository.Update(comment);
 
             return RedirectToAction("Index");
         }

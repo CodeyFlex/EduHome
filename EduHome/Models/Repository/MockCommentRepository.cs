@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace EduHome.Models.Repository
 {
-    public class MockCommentRepository : ICommentRepository
+    public class MockCommentRepository
     {
         private List<Comment> _commentList;
 
@@ -19,21 +19,9 @@ namespace EduHome.Models.Repository
             };
         }
 
-        public Comment Add(Comment comment)
+        public Comment GetComment(int? id)
         {
-            comment.Id = _commentList.Max(c => c.Id) + 1;
-            _commentList.Add(comment);
-            return comment;
-        }
-
-        public Comment Delete(int? id)
-        {
-            Comment comment = _commentList.FirstOrDefault(c => c.Id == id);
-            if (comment != null)
-            {
-                _commentList.Remove(comment);
-            }
-            return comment;
+            return _commentList.FirstOrDefault(c => c.Id == id);
         }
 
         public IEnumerable<Comment> GetAllComments()
@@ -41,9 +29,11 @@ namespace EduHome.Models.Repository
             return _commentList;
         }
 
-        public Comment GetComment(int? id)
+        public Comment Add(Comment comment)
         {
-            return _commentList.FirstOrDefault(c => c.Id == id);
+            comment.Id = _commentList.Max(c => c.Id) + 1;
+            _commentList.Add(comment);
+            return comment;
         }
 
         public Comment Update(Comment commentChanges)
@@ -58,6 +48,16 @@ namespace EduHome.Models.Repository
                 comment.Comment_Likes = commentChanges.Comment_Likes;
                 comment.Comment_Replies = commentChanges.Comment_Replies;
                 comment.Comment_Reply_To_Id = commentChanges.Comment_Reply_To_Id;
+            }
+            return comment;
+        }
+
+        public Comment Delete(int? id)
+        {
+            Comment comment = _commentList.FirstOrDefault(c => c.Id == id);
+            if (comment != null)
+            {
+                _commentList.Remove(comment);
             }
             return comment;
         }

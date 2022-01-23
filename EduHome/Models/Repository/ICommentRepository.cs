@@ -7,8 +7,8 @@ namespace EduHome.Models.Repository
 {
     public interface ICommentRepository
     {
-        Comment GetComment(int? id);
-        IEnumerable<Comment> GetAllComments();
+        Task<Comment> GetComment(int? id);
+        Task<IEnumerable<Comment>> GetAllComments();
         Comment Add(Comment comment);
         Comment Update(Comment commentChanges);
         Comment Delete(int? id);
