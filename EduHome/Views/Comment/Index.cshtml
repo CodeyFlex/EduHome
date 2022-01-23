@@ -75,7 +75,7 @@
                                                             3
                                                         </a>
                                                     </li>
-                                                    @if (User.IsInRole("Admin"))
+                                                    @if (User.IsInRole(EduHome.Utility.Helper.Admin))
                                                     {
                                                         <li class="list-inline-item ml-auto">
                                                             <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
@@ -86,7 +86,7 @@
                                                         </li>
                                                     }
 
-                                                    @if (User.IsInRole("Admin") || User.Identity.Name == iecomment.Commenter)
+                                                    @if (User.IsInRole(EduHome.Utility.Helper.Admin) || User.Identity.Name == iecomment.Commenter)
                                                     {
                                                         <li class="list-inline-item ml-auto">
                                                             <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
@@ -152,7 +152,7 @@
                                                         3
                                                     </a>
                                                 </li>
-                                                @if (User.IsInRole("Admin"))
+                                                @if (User.IsInRole(EduHome.Utility.Helper.Admin))
                                                 {
                                                     <li class="list-inline-item ml-auto">
                                                         <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
@@ -163,7 +163,7 @@
                                                     </li>
                                                 }
 
-                                                @if (User.IsInRole("Admin") || User.Identity.Name == iecomment.Commenter)
+                                                @if (User.IsInRole(EduHome.Utility.Helper.Admin) || User.Identity.Name == iecomment.Commenter)
                                                 {
                                                     <li class="list-inline-item ml-auto">
                                                         <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
@@ -227,7 +227,7 @@
                                                         3
                                                     </a>
                                                 </li>
-                                                @if (User.IsInRole("Admin"))
+                                                @if (User.IsInRole(EduHome.Utility.Helper.Admin))
                                                 {
                                                     <li class="list-inline-item ml-auto">
                                                         <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
@@ -238,7 +238,7 @@
                                                     </li>
                                                 }
 
-                                                @if (User.IsInRole("Admin") || User.Identity.Name == iecomment.Commenter)
+                                                @if (User.IsInRole(EduHome.Utility.Helper.Admin) || User.Identity.Name == iecomment.Commenter)
                                                 {
                                                     <li class="list-inline-item ml-auto">
                                                         <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
