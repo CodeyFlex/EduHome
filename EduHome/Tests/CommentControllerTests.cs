@@ -1,5 +1,4 @@
-﻿using Autofac.Extras.Moq;
-using EduHome.Controllers;
+﻿using EduHome.Controllers;
 using EduHome.Data;
 using EduHome.Models;
 using EduHome.Models.Repository;
@@ -44,6 +43,33 @@ namespace EduHome.Tests
             var model = Assert.IsAssignableFrom<CommentVM>(
                 viewResult.ViewData.Model);
             Assert.Equal(3, model.IEComment.Count());
+        }
+
+        [Fact]
+        public async Task IndexPost_ReturnsBadRequestResult_WhenModelStateIsInvalid()
+        {
+            // Arrange
+            var mockRepo = new Mock<ICommentRepository>();
+            mockRepo.Setup(repo => repo.GetAllComments())
+                .ReturnsAsync(GetSampleComments());
+            var controller = new CommentController(null, mockRepo.Object);
+            controller.ModelState.AddModelError("Comment_String", "Required");
+            var newComment = new CommentVM()
+            {
+                Comment = new Comment
+                {
+                    Commenter = "Monty",
+                    Comment_String = null, //Error is here
+                    Comment_Date = DateTime.Today
+                }
+            };
+
+            // Act
+            var result = await controller.AddComment(newComment);
+
+            // Assert
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+            Assert.IsType<SerializableError>(badRequestResult.Value);
         }
 
         private List<Comment> GetSampleComments()
