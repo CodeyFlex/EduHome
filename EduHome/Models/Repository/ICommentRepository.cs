@@ -9,8 +9,8 @@ namespace EduHome.Models.Repository
     {
         Task<Comment> GetComment(int? id);
         Task<IEnumerable<Comment>> GetAllComments();
-        Comment Add(Comment comment);
-        Comment Update(Comment commentChanges);
-        Comment Delete(int? id);
+        Task<Comment> AddAsync(Comment comment);
+        Task<Comment> Update(Comment commentChanges);
+        Task<Comment> Delete(int? id);
     }
 }

@@ -37,9 +37,13 @@ namespace EduHome.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin, User")]
         [ValidateAntiForgeryToken]
-        public IActionResult Index(CommentVM model)
+        public async Task<IActionResult> AddComment(CommentVM model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else if (ModelState.IsValid)
             {
                 var comment = new Comment
                 {
@@ -48,7 +52,7 @@ namespace EduHome.Controllers
                     Comment_Date = DateTime.Now
                 };
 
-                _commentRepository.Add(comment);
+                await _commentRepository.AddAsync(comment);
             }
             return RedirectToAction("Index");
         }
@@ -57,7 +61,7 @@ namespace EduHome.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin, User")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeletePost(int? id)
+        public async Task<IActionResult> DeleteComment(int? id)
         {
             var comment = _commentRepository.GetComment(id);
             if (comment == null)
@@ -66,7 +70,7 @@ namespace EduHome.Controllers
             }
             else
             {
-                _commentRepository.Delete(id);
+                await _commentRepository.Delete(id);
             }
 
             return RedirectToAction("Index");
@@ -78,7 +82,7 @@ namespace EduHome.Controllers
         {
             var comment = await _commentRepository.GetComment(id);
             comment.Comment_Highlighted = true; //Changing highlight value
-            _commentRepository.Update(comment);
+            await _commentRepository.Update(comment);
 
             return RedirectToAction("Index");
         }
@@ -89,7 +93,7 @@ namespace EduHome.Controllers
         {
             var comment = await _commentRepository.GetComment(id);
             comment.Comment_Highlighted = false; //Changing highlight value
-            _commentRepository.Update(comment);
+            await _commentRepository.Update(comment);
 
             return RedirectToAction("Index");
         }

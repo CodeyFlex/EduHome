@@ -25,28 +25,28 @@ namespace EduHome.Models.Repository
             return await Task.FromResult(_db.Comments);
         }
 
-        public Comment Add(Comment comment)
+        public async Task <Comment> AddAsync(Comment comment)
         {
             _db.Comments.Add(comment);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
             return comment;
         }
 
-        public Comment Update(Comment commentChanges)
+        public async Task<Comment> Update(Comment commentChanges)
         {
             var comment = _db.Comments.Attach(commentChanges);
             comment.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
             return commentChanges;
         }
 
-        public Comment Delete(int? id)
+        public async Task<Comment> Delete(int? id)
         {
             Comment comment = _db.Comments.Find(id);
             if (comment != null)
             {
                 _db.Comments.Remove(comment);
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
             }
             return comment;
         }
